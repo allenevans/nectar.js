@@ -1,6 +1,6 @@
 {
   "name": "nectar.js",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "JavaScript dependency injection library.",
   "main": "src/nectar.js",
   "repository": {
