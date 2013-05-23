@@ -1,6 +1,6 @@
 /*
  * Nectar.js:   JavaScript Dependency Injection Library
- * Version  :   0.1.0
+ * Version  :   0.1.1
  * Date     :   23/05/2013
  * Author   :   Allen Evans
  * 
@@ -27,7 +27,7 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
  */
-(function (global) {
+(function (window, module) {
     "use strict";
 
     var Nectar = function (name) {
@@ -109,7 +109,7 @@
             };
         }
     };
-    
+
     /**
     *   @function registerFactory.
     *   @description registers an object that will be resolved later. Every time the resolve method
@@ -305,5 +305,11 @@
         });
     };
 
-    window.Nectar = Nectar;
-}(window));
+    if (window) {
+        window.Nectar = Nectar;
+    }
+
+    if (module) {
+        module.exports = Nectar;
+    }
+}(typeof window !== "undefined" ? window : null, typeof module !== "undefined" ? module : null));
