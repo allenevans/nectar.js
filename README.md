@@ -95,6 +95,7 @@ alert("The date is, and will always be " + date1);
 var date2 = nectar.resolve("whatIsTheDate").theDate();
 alert("The date is, and will always be " + date2);
 ```
+[jsfiddle](http://jsfiddle.net/uwk5K/)
 
 ###registerFactory
 
@@ -122,6 +123,8 @@ alert("The date will keep changing " + date1);
 var date2 = nectar.resolve("whatIsTheDate").theDate();
 alert("The date will keep changing " + date2);
 ```
+
+[jsfiddle](http://jsfiddle.net/AaJ59/)
 
 ###inject
 Injects into the given function, any resolvable arguments based on their name. Any unresolved
