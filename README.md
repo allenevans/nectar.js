@@ -95,7 +95,7 @@ alert("The date is, and will always be " + date1);
 var date2 = nectar.resolve("whatIsTheDate").theDate();
 alert("The date is, and will always be " + date2);
 ```
-[jsfiddle](http://jsfiddle.net/uwk5K/)
+[jsfiddle - registerSingleton example](http://jsfiddle.net/uwk5K/)
 
 ###registerFactory
 
@@ -124,7 +124,7 @@ var date2 = nectar.resolve("whatIsTheDate").theDate();
 alert("The date will keep changing " + date2);
 ```
 
-[jsfiddle](http://jsfiddle.net/AaJ59/)
+[jsfiddle - registerFactory example](http://jsfiddle.net/AaJ59/)
 
 ###inject
 Injects into the given function, any resolvable arguments based on their name. Any unresolved
@@ -139,5 +139,5 @@ nectar.inject(function (iexist, idontexist) {
     alert("idontexist an am " + typeof idontexist);
 
 });
-
+[jsfiddle - inject example](http://jsfiddle.net/G3g4n/)
 ```
