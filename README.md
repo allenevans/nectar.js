@@ -139,5 +139,5 @@ nectar.inject(function (iexist, idontexist) {
     alert("idontexist an am " + typeof idontexist);
 
 });
-[jsfiddle - inject example](http://jsfiddle.net/G3g4n/)
 ```
+[jsfiddle - inject example](http://jsfiddle.net/G3g4n/)
