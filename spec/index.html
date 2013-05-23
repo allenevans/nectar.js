@@ -1,0 +1,67 @@
+<html>
+<head>
+  <title>Jasmine Spec Runner</title>
+
+  <link rel="stylesheet" type="text/css" href="../lib/jasmine-1.3.1/jasmine.css">
+  <script type="text/javascript" src="../lib/jasmine-1.3.1/jasmine.js"></script>
+  <script type="text/javascript" src="../lib/jasmine-1.3.1/jasmine-html.js"></script>
+
+  <!-- include source files here... -->
+  <script type="text/javascript" src="../src/nectar.js"></script>
+
+  <!-- include spec files here... -->
+  <script type="text/javascript" src="SpecHelper.js"></script>
+  <script type="text/javascript" src="Nectar.constructObject.spec.js"></script>
+  <script type="text/javascript" src="Nectar.factory.object.1.spec.js"></script>
+  <script type="text/javascript" src="Nectar.factory.object.2.spec.js"></script>
+  <script type="text/javascript" src="Nectar.getArgs.spec.js"></script>
+  <script type="text/javascript" src="Nectar.inject.object.1.spec.js"></script>
+  <script type="text/javascript" src="Nectar.inject.optional.spec.js"></script>
+  <script type="text/javascript" src="Nectar.isObjectConstructor.spec.js"></script>
+  <script type="text/javascript" src="Nectar.multiple.spec.js"></script>
+  <script type="text/javascript" src="Nectar.register-resolve-process.constructor.spec.js"></script>
+  <script type="text/javascript" src="Nectar.register-resolve-process.function.1.spec.js"></script>
+  <script type="text/javascript" src="Nectar.register-resolve-process.function.2.spec.js"></script>
+  <script type="text/javascript" src="Nectar.register-resolve-process.function.3.spec.js"></script>
+  <script type="text/javascript" src="Nectar.register-resolve-process.object.1.spec.js"></script>
+  <script type="text/javascript" src="Nectar.register.array.noargs.spec.js"></script>
+  <script type="text/javascript" src="Nectar.register.object.noargs.spec.js"></script>
+  <script type="text/javascript" src="Nectar.singleton.function.1.spec.js"></script>
+  <script type="text/javascript" src="Nectar.singleton.object.1.spec.js"></script>
+  <script type="text/javascript" src="Nectar.singleton.object.2.spec.js"></script>
+
+  <script type="text/javascript">
+  
+    (function() {
+        var jasmineEnv = jasmine.getEnv(),
+            htmlReporter = new jasmine.HtmlReporter();
+  
+        jasmineEnv.updateInterval = 1000;
+
+        jasmineEnv.addReporter(htmlReporter);
+
+        jasmineEnv.specFilter = function (spec) {
+            return htmlReporter.specFilter(spec);
+        };
+
+        var currentWindowOnload = window.onload;
+
+        window.onload = function () {
+            if (currentWindowOnload) {
+                currentWindowOnload();
+            }
+            execJasmine();
+        };
+
+        function execJasmine() {
+            jasmineEnv.execute();
+        }
+
+    })();
+  </script>
+
+</head>
+
+<body>
+</body>
+</html>
