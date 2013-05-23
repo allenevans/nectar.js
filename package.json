@@ -1,0 +1,21 @@
+{
+  "name": "nectar.js",
+  "version": "0.1.0",
+  "description": "JavaScript dependency injection library.",
+  "main": "src/nectar.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/allenevans/nectar.js.git"
+  },
+  "keywords": [
+    "dependency",
+    "injection",
+    "di",
+    "ioc",
+    "nectar",
+    "loosely",
+    "coupled"
+  ],
+  "author": "Allen Evans",
+  "license": "MIT"
+}
