@@ -95,7 +95,6 @@ alert("The date is, and will always be " + date1);
 var date2 = nectar.resolve("whatIsTheDate").theDate();
 alert("The date is, and will always be " + date2);
 ```
-[jsfiddle - registerSingleton example](http://jsfiddle.net/uwk5K/)
 
 ###registerFactory
 
@@ -124,8 +123,6 @@ var date2 = nectar.resolve("whatIsTheDate").theDate();
 alert("The date will keep changing " + date2);
 ```
 
-[jsfiddle - registerFactory example](http://jsfiddle.net/AaJ59/)
-
 ###inject
 Injects into the given function, any resolvable arguments based on their name. Any unresolved
 arguments will be set to undefined.
@@ -140,4 +137,23 @@ nectar.inject(function (iexist, idontexist) {
 
 });
 ```
-[jsfiddle - inject example](http://jsfiddle.net/G3g4n/)
+
+The context of the injected function can also be set using the third parameter.
+
+```js
+
+var newContext = {
+    hello : "i'm a new context"
+};
+
+nectar.register("iexist", "hello");
+
+nectar.inject(function (iexist, idontexist) {
+
+    alert("iexist and say " + iexist);
+    alert("idontexist an am " + typeof idontexist);
+    
+    alert("hello " + this.hello);
+
+}, null, newContext);
+```

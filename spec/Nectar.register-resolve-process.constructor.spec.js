@@ -46,12 +46,9 @@
 
             var result = null;
             nectar.inject(["MyObject", function (obj){
-                console.log("Injected into function MyObject as : =>");
-                console.log(obj);
                 result = obj;
             }]);
-            console.log(result);
-
+            
             expect(result).not.toBeUndefined();
             expect(result).not.toBeNull();
             expect(typeof result == "function").toBe(true);

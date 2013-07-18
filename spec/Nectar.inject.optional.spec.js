@@ -37,8 +37,6 @@
                 fooService = nectar.inject(FooService, optional),
                 result = fooService.getValue();
 
-            console.log(result);
-
             expect(result).not.toBeUndefined();
             expect(result).not.toBe(0);
             expect(result).not.toBeNull();

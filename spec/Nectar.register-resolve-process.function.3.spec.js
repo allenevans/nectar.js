@@ -45,8 +45,6 @@
 
             var result = nectar.resolve("MyFunction2");
 
-            console.log(result.toString());
-
             expect(result).not.toBe(null);
             expect(result).toBe(value * 2);
         });
@@ -58,8 +56,6 @@
                 "MyFunction2",
                 myfunc4
             ]);
-
-            console.log(result.toString());
 
             expect(result).not.toBe(null);
             expect(result).toBe(value * (value * 2));

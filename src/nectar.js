@@ -1,7 +1,7 @@
 /*
  * Nectar.js:   JavaScript Dependency Injection Library
- * Version  :   0.1.1
- * Date     :   23/05/2013
+ * Version  :   0.1.2
+ * Date     :   18/07/2013
  * Author   :   Allen Evans
  * 
  * ------------------------------------------------------------------------------------------------
@@ -225,9 +225,10 @@
     *                   by calling the function.
     *   @param {Object} func function to resolve arguments and call.
     *   @param {Object} optional resolved dependencies.
+    *   @param {Object} optional context when injecting functions only..
     *   @returns {Object} Returns the result of calling the function.
     */
-    Nectar.prototype.inject = function (func, optional) {
+    Nectar.prototype.inject = function (func, optional, context) {
 
         if (func) {
 
@@ -239,7 +240,7 @@
             if (func.constructor === Array) {
                 target = func[func.length - 1];
                 resolvedArgs = args.map(function (arg) { return self.resolve(arg, optional); });
-                return target.apply(target, resolvedArgs);
+                return target.apply(context || target, resolvedArgs);
             } else if (this.isObjectConstructor(func)) {
                 args = this.getArgs(func);
                 resolvedArgs = args.map(function (arg) { return self.resolve(arg, optional); });
@@ -249,10 +250,10 @@
             } else {
                 if (args.length === 0) {
                     //nothing to do. call func.
-                    return func.call(func);
+                    return func.call(context || func);
                 } else {
                     resolvedArgs = args.map(function (arg) { return self.resolve(arg, optional); });
-                    return func.apply(func, resolvedArgs);
+                    return func.apply(context || func, resolvedArgs);
                 }
             }
         } else {
