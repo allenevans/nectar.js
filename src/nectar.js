@@ -1,7 +1,7 @@
 /*
  * Nectar.js:   JavaScript Dependency Injection Library
- * Version  :   0.1.3
- * Date     :   23/09/2013
+ * Version  :   0.1.4
+ * Date     :   14/12/2013
  * Author   :   Allen Evans
  * 
  * ------------------------------------------------------------------------------------------------
@@ -33,6 +33,10 @@
     var Nectar = function (name) {
         this.name = name || "nectar";
         this.dependencies = [];
+
+        // list of unresolved items to be resolved once all dependencies
+        // are resolvable.
+        this._unresolved = []; 
     };
 
     /**
@@ -81,6 +85,8 @@
     Nectar.prototype.register = function (key, item) {
         if (key && !Array.prototype[key]) {
             this.dependencies[key] = function () { return item; };
+            
+            this.processUnresolved();
         }
     };
 
@@ -107,6 +113,8 @@
 
                 return instance;
             };
+            
+            this.processUnresolved();
         }
     };
 
@@ -127,9 +135,29 @@
             this.dependencies[key] = function () {
                 return self.inject(factory, optional);
             };
+            
+            this.processUnresolved();
         }
     };
 
+    /**
+    *   @function processUnresolved.
+    *   @description processes any unresolved deferred inject requests.
+    */
+    Nectar.prototype.processUnresolved = function () {
+        
+        var self = this;
+        
+        if (self._unresolved.length) {
+            var toProcess = self._unresolved;
+            self._unresolved = [];
+            
+            toProcess.every(function (item) {
+                setTimeout(function () { self.inject.apply(self, item); }, 0); // inject on next tick.
+            });
+        }
+    };
+    
     /**
     *   @function hasResolveableArgs.
     *   @description checks if the item passed has named arguments that can be resolved.
@@ -225,7 +253,7 @@
     *                   by calling the function.
     *   @param {Object} func function to resolve arguments and call.
     *   @param {Object} optional resolved dependencies.
-    *   @param {Object} optional context when injecting functions only..
+    *   @param {Object} context when injecting functions only.
     *   @returns {Object} Returns the result of calling the function.
     */
     Nectar.prototype.inject = function (func, optional, context) {
@@ -261,6 +289,74 @@
         }
     };
 
+    
+    /**
+    *   @function deferredInject.
+    *   @description for the given function, the resolvable arguments are resolved and injected
+    *                   by calling the function once as soon as all arguments are resolvable.
+    *   @param {Object} func function to resolve arguments and call.
+    *   @param {Object} optional resolved dependencies.
+    *   @param {Object} context when injecting functions only.
+    *   @returns {Object} Returns the result of calling the function.
+    */
+    Nectar.prototype.deferredInject = function (func, optional, context) {
+        
+        // TODO. Refactor code.
+        if (func) {
+
+            var self = this,
+                args = this.getArgs(func),
+                resolvedArgs = null,
+                target;
+
+            if (func.constructor === Array) {
+                target = func[func.length - 1];
+                resolvedArgs = args.map(function (arg) { return self.resolve(arg, optional); });
+                
+                if (resolvedArgs.some(function (arg) { return arg === undefined; })) {
+                    // has unresolved arguments.
+                    self._unresolved.push([func, optional, context]);
+                    return undefined;
+                } else {
+                    return target.apply(context || target, resolvedArgs);
+                }
+                
+            } else if (this.isObjectConstructor(func)) {
+                
+                args = this.getArgs(func);
+                resolvedArgs = args.map(function (arg) { return self.resolve(arg, optional); });
+                
+                if (resolvedArgs.some(function (arg) { return arg === undefined; })) {
+                    // has unresolved arguments.
+                    self._unresolved.push([func, optional, context]);
+                    return undefined;
+                } else {
+                    return this.constructObject(func, resolvedArgs);
+                }
+                
+            } else if (typeof func === "object") {
+                return func;
+            } else {
+                if (args.length === 0) {
+                    // nothing to do. call func.
+                    return func.call(context || func);
+                } else {
+                    resolvedArgs = args.map(function (arg) { return self.resolve(arg, optional); });
+                    
+                    if (resolvedArgs.some(function (arg) { return arg === undefined; })) {
+                        // has unresolved arguments.
+                        self._unresolved.push([func, optional, context]);
+                        return undefined;
+                    } else {
+                        return func.apply(context || func, resolvedArgs);
+                    }
+                }
+            }
+        } else {
+            return undefined;
+        }
+    };
+    
     /**
     *   @function getArgs.
     *   @description reflects to get the arguments of the given function.

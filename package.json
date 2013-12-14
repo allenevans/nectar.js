@@ -1,6 +1,6 @@
 {
   "name": "nectar.js",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "homepage": "https://github.com/allenevans/nectar.js",
   "description": "JavaScript dependency injection library.",
   "main": "src/nectar.js",

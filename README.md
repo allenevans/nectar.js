@@ -157,3 +157,19 @@ nectar.inject(function (iexist, idontexist) {
 
 }, null, newContext);
 ```
+
+###deferredInject
+Injects into the given function only when all arguments are resolvable.
+
+```js
+nectar.register("iexist", "hello");
+
+nectar.deferredInject(function (iexist, idontexistyet) {
+    console.log("iexist and say " + iexist);
+    console.log("idontexistyet and say " + idontexistyet);
+});
+
+setTimeout(function () {
+    nectar.register("idontexistyet", "but now i do");
+}, 1000);
+```
