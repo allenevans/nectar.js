@@ -153,7 +153,7 @@
             self._unresolved = [];
             
             toProcess.every(function (item) {
-                setTimeout(function () { self.inject.apply(self, item); }, 0); // inject on next tick.
+                self.inject.apply(self, item);
             });
         }
     };
