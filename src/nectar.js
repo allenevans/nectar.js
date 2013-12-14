@@ -1,6 +1,6 @@
 /*
  * Nectar.js:   JavaScript Dependency Injection Library
- * Version  :   0.1.5
+ * Version  :   0.1.6
  * Date     :   14/12/2013
  * Author   :   Allen Evans
  * 
@@ -144,15 +144,14 @@
     *   @function processUnresolved.
     *   @description processes any unresolved deferred inject requests.
     */
-    Nectar.prototype.processUnresolved = function () {
-        
+    Nectar.prototype.processUnresolved = function () {        
         var self = this;
         
         if (self._unresolved.length) {
             var toProcess = self._unresolved;
             self._unresolved = [];
             
-            toProcess.every(function (item) {
+            toProcess.forEach(function (item) {
                 self.inject.apply(self, item);
             });
         }
