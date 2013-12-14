@@ -1,6 +1,6 @@
 /*
  * Nectar.js:   JavaScript Dependency Injection Library
- * Version  :   0.1.4
+ * Version  :   0.1.5
  * Date     :   14/12/2013
  * Author   :   Allen Evans
  * 
