@@ -1,7 +1,7 @@
 /*
  * Nectar.js:   JavaScript Dependency Injection Library
- * Version  :   0.1.6
- * Date     :   14/12/2013
+ * Version  :   0.1.7
+ * Date     :   15/12/2013
  * Author   :   Allen Evans
  * 
  * ------------------------------------------------------------------------------------------------
@@ -152,7 +152,7 @@
             self._unresolved = [];
             
             toProcess.forEach(function (item) {
-                self.inject.apply(self, item);
+                self.deferredInject.apply(self, item);
             });
         }
     };
